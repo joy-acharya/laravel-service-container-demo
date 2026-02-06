@@ -63,24 +63,24 @@ In this project, the MessageServiceProvider dynamically chooses between EmailSen
 
 ⚡ Getting Started
 1️⃣ Clone Repository
-    ```bash
+    bash
     git clone https://github.com/your-username/laravel-service-container-demo.git
     cd laravel-service-container-demo
 
 2️⃣ Install Dependencies
-    ```bash
+    bash
     composer install
 
 3️⃣ Generate App Key
-    ```bash
+    bash
     php artisan key:generate
 
 4️⃣ Start Laravel Server
-    ```bash
+    bash
     php artisan serve
 
 Server runs at:
-    ```bash
+    bash
     http://127.0.0.1:8000
 
 🔄 API Usage Examples
