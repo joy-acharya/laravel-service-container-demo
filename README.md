@@ -155,8 +155,8 @@ php artisan test
 Run the project using Docker:
 
 ```bash
-    docker compose up --build
-
+docker compose up --build
+```
 ---
 🎯 Why This Project is Production-Ready
 
