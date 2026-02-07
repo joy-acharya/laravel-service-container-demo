@@ -150,6 +150,14 @@ php artisan test
 
 ---
 
+## 🐳 Docker Support
+
+Run the project using Docker:
+
+```bash
+docker compose up --build
+
+
 ## 🎯 Why This Project is Production-Ready
 
 - **Interface abstraction** → Loose coupling, easy to extend  
