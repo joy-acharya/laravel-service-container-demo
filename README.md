@@ -158,7 +158,7 @@ Run the project using Docker:
 docker compose up --build
 
 ---
-## 🎯 Why This Project is Production-Ready
+🎯 Why This Project is Production-Ready
 
 - **Interface abstraction** → Loose coupling, easy to extend  
 - **Service Container** → Automatic dependency resolution  
