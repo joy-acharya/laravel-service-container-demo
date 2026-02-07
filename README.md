@@ -21,79 +21,103 @@ This project is suitable for learning, interviews, and as a starter template for
 ## 📌 Concepts
 
 ### Service Container
-A powerful **IoC (Inversion of Control) container** that automatically resolves class dependencies.  
+A powerful **IoC (Inversion of Control) container** in Laravel that automatically resolves class dependencies.
 It injects objects into controllers, jobs, events, and other Laravel components.
 
-**Example:**
+**Definition:**
+> The service container is a dependency injection container that manages class dependencies and instantiates objects automatically.
 
+**Example:**
 ```php
 public function send(MessageSender $sender)
-Here, $sender is automatically provided by the service container, so the controller does not need to know which concrete class is being used.
+```
+Here, `$sender` is automatically provided by the service container, so the controller does not need to know which concrete class is being used.
 
-Service Provider
-Registers bindings into the Service Container.
-It defines which concrete class should be used for a given interface.
+### Service Provider
+Service Providers are classes that **register bindings and services** into the service container.
 
-In this project, the MessageServiceProvider dynamically chooses between EmailSender and SmsSender based on a query parameter:
-    ```
-    $this->app->bind(MessageSender::class, function ($app) {
-        $request = $app->make(Request::class);
-        return $request->query('type') === 'sms'
-            ? $app->make(SmsSender::class)
-            : $app->make(EmailSender::class);
-    });
+**Definition:**
+> A service provider tells Laravel how to bind an interface to a concrete class and provides a place to register services in the application.
+
+In this project, the **MessageServiceProvider** dynamically chooses between **EmailSender** and **SmsSender** based on a query parameter:
+```php
+$this->app->bind(MessageSender::class, function ($app) {
+    $request = $app->make(Request::class);
+    return $request->query('type') === 'sms'
+        ? $app->make(SmsSender::class)
+        : $app->make(EmailSender::class);
+});
+```
 ✅ Controller remains unchanged; the provider decides which service is injected.
-    ```
-    📂 Project Structure
-    app/
-    ├── Contracts/        # Interface definitions
-    │   └── MessageSender.php
-    ├── Services/         # Concrete implementations
-    │   ├── EmailSender.php
-    │   └── SmsSender.php
-    ├── Providers/        # Service Providers
-    │   └── MessageServiceProvider.php
-    ├── Http/Controllers/
-    │   └── MessageController.php
-    routes/
-    └── web.php           # Routes
-    tests/
-    └── Feature/MessageSenderTest.php  # Unit tests
 
+---
 
-⚡ Getting Started
-1️⃣ Clone Repository
-    bash
-    git clone https://github.com/your-username/laravel-service-container-demo.git
-    cd laravel-service-container-demo
+## 📂 Project Structure
 
-2️⃣ Install Dependencies
-    bash
-    composer install
+```
+app/
+├── Contracts/        # Interface definitions
+│   └── MessageSender.php
+├── Services/         # Concrete implementations
+│   ├── EmailSender.php
+│   └── SmsSender.php
+├── Providers/        # Service Providers
+│   └── MessageServiceProvider.php
+├── Http/Controllers/
+│   └── MessageController.php
+routes/
+└── web.php           # Routes
+tests/
+└── Feature/MessageSenderTest.php  # Unit tests
+```
 
-3️⃣ Generate App Key
-    bash
-    php artisan key:generate
+---
 
-4️⃣ Start Laravel Server
-    bash
-    php artisan serve
+## ⚡ Getting Started
 
+### 1️⃣ Clone Repository
+```bash
+git clone https://github.com/joy-acharya/laravel-service-container-demo.git
+cd laravel-service-container-demo
+```
+
+### 2️⃣ Install Dependencies
+```bash
+composer install
+```
+
+### 3️⃣ Generate App Key
+```bash
+php artisan key:generate
+```
+
+### 4️⃣ Start Laravel Server
+```bash
+php artisan serve
+```
 Server runs at:
-    bash
-    http://127.0.0.1:8000
+```bash
+http://127.0.0.1:8000
+```
 
-🔄 API Usage Examples
-The project has one main endpoint:
+---
 
+## 🔄 API Usage Examples
+
+The project has **one main endpoint**:
+```
 GET /send
-It accepts an optional query parameter type:
+```
+It accepts an optional query parameter `type`:
 
-URL	Description	Output Example
-/send	Default (Email service)	EMAIL SENT: Hello from Laravel
-/send?type=email	Force Email service	EMAIL SENT: Hello from Laravel
-/send?type=sms	Force SMS service	SMS SENT: Hello from Laravel
-Example Using cURL
+| URL                  | Description                  | Output Example                       |
+|----------------------|-----------------------------|-------------------------------------|
+| `/send`              | Default (Email service)     | `EMAIL SENT: Hello from Laravel`    |
+| `/send?type=email`   | Force Email service         | `EMAIL SENT: Hello from Laravel`    |
+| `/send?type=sms`     | Force SMS service           | `SMS SENT: Hello from Laravel`      |
+
+### Example Using cURL
+```bash
 # Default (Email)
 curl http://127.0.0.1:8000/send
 
@@ -102,24 +126,46 @@ curl http://127.0.0.1:8000/send?type=email
 
 # Force SMS
 curl http://127.0.0.1:8000/send?type=sms
+```
 
+### Example Using Postman / Browser
+- Open browser or Postman  
+- Hit the URL: `http://127.0.0.1:8000/send` → returns Email  
+- Hit the URL: `http://127.0.0.1:8000/send?type=sms` → returns SMS  
 
-Example Using Postman / Browser
-Open browser or Postman
+---
 
-Hit the URL: http://127.0.0.1:8000/send → returns Email
+## 🧪 Unit Tests
 
-Hit the URL: http://127.0.0.1:8000/send?type=sms → returns SMS
-
-🧪 Unit Tests
 Unit tests cover:
 
-Email service
-
-SMS service
-
-Runtime service container binding for /send route
+- Email service  
+- SMS service  
+- Runtime service container binding for `/send` route
 
 Run tests with:
-   ```
-    php artisan test
+```bash
+php artisan test
+```
+
+---
+
+## 🎯 Why This Project is Production-Ready
+
+- **Interface abstraction** → Loose coupling, easy to extend  
+- **Service Container** → Automatic dependency resolution  
+- **Service Provider** → Clean separation of feature-specific bindings  
+- **Runtime switching** → Flexible, no code duplication  
+- **Unit-tested** → Safe for refactoring  
+- **SOLID principles** → Dependency inversion, clean architecture  
+- Compatible with **Laravel 11+ standards**
+
+## 👨‍💻 Author
+Joy Acharya
+
+### 🤝 Let's Connect!
+- 💼 [LinkedIn](https://www.linkedin.com/in/staywithjoy)
+- 📧 [Email](mailto:joycseuiu@gmail.com)
+
+---
+*"Always learning, always building."*
